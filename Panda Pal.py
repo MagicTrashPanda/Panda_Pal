@@ -23,6 +23,15 @@ async def ping(interaction):
     await interaction.response.send_message('Sent to your dms!')
 
 
+# battle command
+@tree.command(
+    name="battle",
+    description="Battle time",
+    guild=discord.Object(id=836717870905163806)
+)
+async def battle(interaction):
+    await interaction.response.send_message()
+
 @client.event
 async def on_ready():
     await tree.sync(guild=discord.Object(id=836717870905163806))
