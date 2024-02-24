@@ -42,6 +42,7 @@ async def battle(interaction):
         await combat(interaction)
         if hero.health == 0 or enemy.health == 0:
             break
+
     # global main_interaction
     # if main_interaction is None:
     #     await interaction.response.send_message("test")
