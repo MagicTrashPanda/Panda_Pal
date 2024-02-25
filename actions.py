@@ -1,8 +1,8 @@
 from character import *
 
 hero = Hero(name="Hero", health=100)
-hero.equip(Weapons.iron_sword)
-enemy = Enemy(name="Enemy", health=100, weapon=Weapons.short_bow)
+hero.equip(weapons.weapon_dict['Iron Sword'])
+enemy = Enemy(name="Enemy", health=100, weapon=weapons.weapon_dict['Short Bow'])
 
 
 async def combat(interaction):
@@ -16,5 +16,3 @@ async def combat(interaction):
                                              f"{hero.name} with {enemy.weapon.name}!\n"
                                              f"{hero_health_bar}\n"
                                              f"{enemy_health_bar}")
-
-

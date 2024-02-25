@@ -1,6 +1,9 @@
 from weapons import Weapons, Weapon
 from health_bar import HealthBar
 
+weapons = Weapons()
+weapons.load_from_json('weapons.json')
+
 
 class Character:
     def __init__(self,
@@ -11,7 +14,7 @@ class Character:
         self.health = health
         self.health_max = health
 
-        self.weapon = Weapons.fists
+        self.weapon = weapons.weapon_dict['Fists']
 
     def attack(self, target) -> None:
         target.health -= self.weapon.damage
@@ -27,7 +30,7 @@ class Hero(Character):
                  health: int,
                  ) -> None:
         super().__init__(name=name, health=health)
-        self.default_weapon = Weapons.fists
+        self.default_weapon = weapons.weapon_dict['Fists']
         self.health_bar = HealthBar(self)
 
     def equip(self, weapon) -> None:

@@ -2,8 +2,8 @@
 from settings import *
 import discord
 from discord import app_commands
-from character import Hero, Enemy
-from weapons import Weapons
+# from character import Hero, Enemy
+# from weapons import Weapons
 from actions import combat, hero, enemy
 # declare bot intents
 intents = discord.Intents.default()

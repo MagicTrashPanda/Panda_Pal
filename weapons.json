@@ -1,0 +1,26 @@
+{
+    "Iron Sword": {
+        "name": "Iron Sword",
+        "weaponType": "sharp",
+        "damage": 5,
+        "value": 10
+    },
+    "Short Bow": {
+        "name": "Short Bow",
+        "weaponType": "ranged",
+        "damage": 4,
+        "value": 8
+    },
+    "Fists": {
+        "name": "Fists",
+        "weaponType": "blunt",
+        "damage": 2,
+        "value": 0
+    },
+    "Great Sword": {
+        "name": "Great Sword",
+        "weaponType": "sharp",
+        "damage": 10,
+        "value": 25
+    }
+}
