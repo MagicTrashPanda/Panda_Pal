@@ -1,1 +1,17 @@
-{"Mountain Lion": {"name": "Mountain Lion", "health": 150, "weapon": "Fists"}}
+{
+    "Mountain Lion": {
+        "name": "Mountain Lion",
+        "health": 150,
+        "weapon": "Claws"
+    },
+    "Spider": {
+        "name": "Spider",
+        "health": 15,
+        "weapon": "Poison Fangs"
+    },
+    "Goblin": {
+        "name": "Goblin",
+        "health": 30,
+        "weapon": "Club"
+    }
+}

@@ -22,5 +22,29 @@
         "weaponType": "sharp",
         "damage": 10,
         "value": 25
+    },
+    "Claws": {
+        "name": "Claws",
+        "weaponType": "sharp",
+        "damage": 5,
+        "value": 0
+    },
+    "Fangs": {
+        "name": "Fangs",
+        "weaponType": "sharp",
+        "damage": 4,
+        "value": 0
+    },
+    "Poison Fangs": {
+        "name": "Poison Fangs",
+        "weaponType": "sharp",
+        "damage": 6,
+        "value": 0
+    },
+    "Club": {
+        "name": "Club",
+        "weaponType": "blunt",
+        "damage": 4,
+        "value": 3
     }
 }

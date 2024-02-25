@@ -27,7 +27,7 @@ class HealthBar:
         self.update()
         remaining_bars = round(self.current_value / self.max_value * self.length)
         lost_bars = self.length - remaining_bars
-        health_bar_output = (f"{self.entity.name}'s HEALTH: {self.entity.health}/{self.entity.health_max}\n"
+        health_bar_output = (f"**{self.entity.name}**'s HEALTH: {self.entity.health}/{self.entity.health_max}\n"
                              f'{self.barrier}'
                              f"{remaining_bars * self.symbol_remaining}"
                              f"{lost_bars * self.symbol_lost}"

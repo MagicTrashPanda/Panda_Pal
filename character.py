@@ -34,10 +34,8 @@ class Hero(Character):
 
     def equip(self, weapon) -> None:
         self.weapon = weapon
-        print(f"{self.name} equipped a(n) {self.weapon.name}!")
 
     def drop(self) -> None:
-        print(f"{self.name} dropped their {self.weapon}!")
         self.weapon = self.default_weapon
 
 
@@ -84,6 +82,7 @@ class Enemies:
 
 
 def create_enemy():
+    weapons.load_from_json('weapons.json')
     enemies = Enemies()
     enemies.load_enemy_dict()
     enemies.load_from_json('enemies.json')

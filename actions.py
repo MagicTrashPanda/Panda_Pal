@@ -1,29 +1,34 @@
 from character import Hero, Enemies
 from weapons import Weapons
+import asyncio
 
 weapons = Weapons()
 enemies = Enemies()
 
 enemies.load_from_json('enemies.json')
 weapons.load_from_json('weapons.json')
-hero = Hero(name="Hero", health=100)
-hero.equip(weapons.weapon_dict['Iron Sword'])
 
 
 current_enemy = None
 
 
-async def combat(interaction, monster_to_fight):
+async def combat(interaction, monster_to_fight, weapon_to_equip, user):
     global current_enemy
+    hero = Hero(name=user, health=100)
+    hero.equip(weapons.weapon_dict[weapon_to_equip])
     current_enemy = enemies.enemy_dict[monster_to_fight]
-    hero.attack(current_enemy)
-    current_enemy.attack(hero)
-    hero_health_bar = hero.health_bar.draw_update()
-    enemy_health_bar = current_enemy.health_bar.draw_update()
-    await interaction.edit_original_response(content=f"{hero.name} dealt {hero.weapon.damage} to "
-                                             f"{current_enemy.name} with {hero.weapon.name}!\n"
-                                             f"{current_enemy.name} dealt {current_enemy.weapon.damage} to "
-                                             f"{hero.name} with {current_enemy.weapon.name}!\n"
-                                             f"{hero_health_bar}\n"
-                                             f"{enemy_health_bar}")
-    return current_enemy
+    while True:
+        await asyncio.sleep(0.25)
+        hero.attack(current_enemy)
+        current_enemy.attack(hero)
+        hero_health_bar = hero.health_bar.draw_update()
+        enemy_health_bar = current_enemy.health_bar.draw_update()
+        await interaction.edit_original_response(content=f"{hero.name} dealt {hero.weapon.damage} to "
+                                                 f"**{current_enemy.name}** with *{hero.weapon.name}*!\n"
+                                                 f"**{current_enemy.name}** dealt {current_enemy.weapon.damage} to "
+                                                 f"{hero.name} with *{current_enemy.weapon.name}*!\n\n\n"
+                                                 f"{hero_health_bar}\n\n"
+                                                 f"{enemy_health_bar}")
+        if hero.health == 0 or current_enemy.health == 0:
+            break
+    return hero, current_enemy
