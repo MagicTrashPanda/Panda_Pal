@@ -46,16 +46,18 @@ class Weapons:
             self.weapon_dict[k] = weapon
 
 
-weapons = Weapons()
-weapons.load_weapon_dict()
-weapons.load_from_json('weapons.json')
-create_name = input("What do you want to name the weapon (Proper capitals and spaces): ")
-create_weapon_type = input("What do you want the type to be (lower case): ")
-create_damage = int(input("What do you want the damage to be: "))
-create_value = int(input("What do you want the value to be: "))
-new_weapon = Weapon(name=create_name,
-                    weapon_type=create_weapon_type,
-                    damage=create_damage,
-                    value=create_value)
-weapons.weapon_dict[create_name] = new_weapon
-weapons.save_to_json('weapons.json')
+def create_weapon():
+    weapons = Weapons()
+    weapons.load_weapon_dict()
+    weapons.load_from_json('weapons.json')
+    create_name = input("What do you want to name the weapon (Proper capitals and spaces): ")
+    create_weapon_type = input("What do you want the type to be (lower case): ")
+    create_damage = int(input("What do you want the damage to be: "))
+    create_value = int(input("What do you want the value to be: "))
+    new_weapon = Weapon(name=create_name,
+                        weapon_type=create_weapon_type,
+                        damage=create_damage,
+                        value=create_value)
+    weapons.weapon_dict[create_name] = new_weapon
+    weapons.save_to_json('weapons.json')
+
