@@ -25,35 +25,6 @@ async def ping(interaction):
     await interaction.response.send_message('Sent to your dms!')
 
 
-class CombatMonsterDropdown(discord.ui.Select):
-    def __init__(self):
-        options = [
-            discord.SelectOption(label='Goblin',
-                                 description='Fight a Goblin 👹',
-                                 value='Goblin'),
-            discord.SelectOption(label='Spider',
-                                 description='Fight a Spider 🕷️',
-                                 value='Spider'),
-            discord.SelectOption(label='Mountain Lion',
-                                 description='Fight a Mountain Lion 🦁',
-                                 value='Mountain Lion'),
-        ]
-        super().__init__(placeholder='Choose a monster to fight',
-                         options=options,
-                         min_values=1,
-                         max_values=1)
-
-    async def callback(self, interaction):
-        self.view.stop()
-        await interaction.edit_original_response(content='You chose {self.values[0]}', view=None)
-
-
-class BattleView(discord.ui.View):
-    def __init__(self):
-        super().__init__()
-        self.add_item(CombatMonsterDropdown())
-
-
 # battle command
 @tree.command(
     name="battle",
@@ -61,12 +32,10 @@ class BattleView(discord.ui.View):
     guild=discord.Object(id=836717870905163806)
 )
 async def battle(interaction,
+                 monster_to_fight: str,
                  weapon_to_equip: str):
     user = interaction.user.mention
-    view = BattleView()
-    await interaction.response.send_message("Choose a Monster to fight!", view=view)
-    await view.wait()  # wait for the user to make a selection
-    monster_to_fight = view.children[0].values[0]  # get the value of the selection
+    await interaction.response.send_message("battlefield")
     await combat(interaction, monster_to_fight, weapon_to_equip, user)
 
 
