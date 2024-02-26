@@ -9,7 +9,8 @@ enemies.load_from_json('enemies.json')
 weapons.load_from_json('weapons.json')
 
 
-# Ask what they want to create in a while loop
+# Ask what they want to create in a while loop and then create the object
+# And then save it to the respective json file
 def creation_tool():
     while True:
         choice = input("What would you like to create: ")
