@@ -45,7 +45,7 @@ class CombatMonsterDropdown(discord.ui.Select):
 
     async def callback(self, interaction):
         self.view.stop()
-        await interaction.edit_original_response(content='You chose {self.values[0]}', view=None)
+        # await interaction.edit_original_response(content='You chose {self.values[0]}', view=None)
 
 
 class BattleView(discord.ui.View):
@@ -67,7 +67,9 @@ async def battle(interaction,
     await interaction.response.send_message("Choose a Monster to fight", view=view)
     await view.wait()  # wait for the user to make a selection
     monster_to_fight = view.children[0].values[0]  # get the value of the selection
-    await combat(interaction, monster_to_fight, weapon_to_equip, user)
+    await interaction.delete_original_response()
+    msg_id = await interaction.followup.send("battle field")
+    await combat(interaction, monster_to_fight, weapon_to_equip, user, msg_id)
 
 
 # @tree.command(

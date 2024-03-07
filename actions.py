@@ -12,7 +12,7 @@ weapons.load_from_json('weapons.json')
 current_enemy = None
 
 
-async def combat(interaction, monster_to_fight, weapon_to_equip, user):
+async def combat(interaction, monster_to_fight, weapon_to_equip, user, msg_id):
     global current_enemy
     hero = Hero(name=user, health=100)
     hero.equip(weapons.weapon_dict[weapon_to_equip])
@@ -23,8 +23,8 @@ async def combat(interaction, monster_to_fight, weapon_to_equip, user):
         current_enemy.attack(hero)
         hero_health_bar = hero.health_bar.draw_update()
         enemy_health_bar = current_enemy.health_bar.draw_update()
-        await interaction.edit_original_response(content=f"{hero.name} dealt {hero.weapon.damage} to "
-                                                 f"**{current_enemy.name}** with *{hero.weapon.name}*!\n"
+        await interaction.followup.edit_message(message_id=msg_id.id, content=f"{hero.name} dealt {hero.weapon.damage} to"
+                                                 f" **{current_enemy.name}** with *{hero.weapon.name}*!\n"
                                                  f"**{current_enemy.name}** dealt {current_enemy.weapon.damage} to "
                                                  f"{hero.name} with *{current_enemy.weapon.name}*!\n\n\n"
                                                  f"{hero_health_bar}\n\n"
