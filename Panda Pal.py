@@ -72,17 +72,6 @@ async def battle(interaction,
     await combat(interaction, monster_to_fight, weapon_to_equip, user, msg_id)
 
 
-# @tree.command(
-#     name="reset",
-#     description="reset battle",
-#     guild=discord.Object(id=836717870905163806)
-# )
-# async def reset(interaction):
-#     hero.health = hero.health_max
-#     current_enemy.health = current_enemy.health_max
-#     await interaction.response.send_message("battlefield reset have fun!")
-
-
 @client.event
 async def on_ready():
     await tree.sync(guild=discord.Object(id=836717870905163806))
