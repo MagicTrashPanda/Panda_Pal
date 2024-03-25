@@ -1,5 +1,5 @@
 # import discord and required files
-from settings import *
+from settings import discordToken
 import discord
 from discord import app_commands
 from actions import combat
@@ -58,8 +58,10 @@ class BattleView(discord.ui.View):
 @tree.command(
     name="battle",
     description="Battle time",
-    guild=discord.Object(id=836717870905163806)
+    guild=discord.Object(id=836717870905163806)  # This is the ID for my test discord
 )
+# This is the code for our battle command
+# we use mandatory arguments to get the users choices for combat then import them into the combat function
 async def battle(interaction,
                  weapon_to_equip: str):
     user = interaction.user.mention

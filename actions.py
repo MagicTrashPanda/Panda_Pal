@@ -1,13 +1,15 @@
+# Import all necessary classes and asyncio for sleep command
 from character import Hero, Enemies
 from weapons import Weapons
 import asyncio
 
+# create classes for weapons and enemies
 weapons = Weapons()
 enemies = Enemies()
 
+# load the json files into the classes creating the dictionaries weapon_dict and enemy_dict
 enemies.load_from_json('enemies.json')
 weapons.load_from_json('weapons.json')
-
 
 current_enemy = None
 
@@ -31,4 +33,4 @@ async def combat(interaction, monster_to_fight, weapon_to_equip, user, msg_id):
                                                  f"{enemy_health_bar}")
         if hero.health == 0 or current_enemy.health == 0:
             break
-    return hero, current_enemy
+

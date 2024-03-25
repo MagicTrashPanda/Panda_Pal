@@ -1,6 +1,12 @@
+# This file contains the Weapon class and the Weapons class
+# The Weapon class is used to create weapons and the Weapons class is used to store and load them
+# The Weapons class is also used to save the weapons to a json file
+# import json for json functionality
 import json
 
 
+# create the Weapon class
+# This class is used to create weapons
 class Weapon:
     def __init__(self,
                  name: str,
@@ -13,6 +19,7 @@ class Weapon:
         self.damage = damage
         self.value = value
 
+# create the to_dict method for the Weapon class
     def to_dict(self):
         return {
             'name': self.name,
@@ -22,6 +29,8 @@ class Weapon:
         }
 
 
+# create the Weapons class
+# This class is used to store and load the weapons
 class Weapons:
     def __init__(self):
         self.weapon_dict = {}
@@ -46,6 +55,7 @@ class Weapons:
             self.weapon_dict[k] = weapon
 
 
+# create the create_weapon function to be used in the content creator
 def create_weapon():
     weapons = Weapons()
     weapons.load_weapon_dict()
