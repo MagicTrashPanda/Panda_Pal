@@ -71,3 +71,4 @@ def create_weapon():
     weapons.weapon_dict[create_name] = new_weapon
     weapons.save_to_json('weapons.json')
 
+
