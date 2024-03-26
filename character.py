@@ -1,9 +1,14 @@
 from weapons import Weapons, Weapon
 from health_bar import HealthBar
 import json
+from pymongo import MongoClient
 
+client = MongoClient("localhost", 27017)
+db = client.panda_pal
+enemies_coll = db.enemies
+players_coll = db.players
 weapons = Weapons()
-weapons.load_from_json('weapons.json')
+weapons.mongo_load()
 
 
 class Character:
@@ -27,10 +32,14 @@ class Hero(Character):
     def __init__(self,
                  name: str,
                  health: int,
+                 user_id: str,
+                 weapon: str
                  ) -> None:
         super().__init__(name=name, health=health)
         self.default_weapon = weapons.weapon_dict['Fists']
         self.health_bar = HealthBar(self)
+        self.user_id = user_id
+        self.weapon = weapons.weapon_dict[weapon]
 
     def equip(self, weapon) -> None:
         self.weapon = weapon
@@ -43,10 +52,10 @@ class Enemy(Character):
     def __init__(self,
                  name: str,
                  health: int,
-                 weapon: Weapon
+                 weapon: str
                  ) -> None:
         super().__init__(name=name, health=health)
-        self.weapon = weapon
+        self.weapon = weapons.weapon_dict[weapon]
         self.health_bar = HealthBar(self)
 
     def to_dict(self):
@@ -55,6 +64,17 @@ class Enemy(Character):
             'health': self.health,
             'weapon': self.weapon.name
         }
+
+
+class Players:
+    def __init__(self):
+        self.player_dict = {}
+
+    def update_db(self):
+        for k, v in self.player_dict.items():
+            players_coll.update_one({"user_id": k}, {"$set": v.to_dict()})
+
+    def load_
 
 
 class Enemies:
@@ -79,6 +99,15 @@ class Enemies:
         for k, v in data.items():
             enemy = Enemy(name=v['name'], health=v['health'], weapon=weapons.weapon_dict[v['weapon']])
             self.enemy_dict[k] = enemy
+
+    @staticmethod
+    def mongo_upload_new(item: dict):
+        enemies_coll.insert(item)
+
+    def mongo_load(self):
+        for item in enemies_coll.find():
+            enemy = Enemy(name=item['name'], health=item['health'], weapon=item['weapon'])
+            self.enemy_dict[item['name']] = enemy
 
 
 def create_enemy():

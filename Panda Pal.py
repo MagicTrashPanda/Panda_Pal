@@ -72,6 +72,17 @@ async def battle(interaction,
     await combat(interaction, monster_to_fight, weapon_to_equip, user, msg_id)
 
 
+@tree.command(
+    name="create",
+    description="create a character",
+    guild=discord.Object(id=836717870905163806)
+)
+async def create(interaction):
+    user_id = interaction.user.id
+    name = interaction.user.mention
+    await interaction.response.send_message("Character created!")
+
+
 @client.event
 async def on_ready():
     await tree.sync(guild=discord.Object(id=836717870905163806))

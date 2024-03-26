@@ -1,4 +1,9 @@
 import json
+from pymongo import MongoClient
+
+client = MongoClient("localhost", 27017)
+db = client.panda_pal
+weapons_coll = db.weapons
 
 
 class Weapon:
@@ -9,14 +14,14 @@ class Weapon:
                  value: int
                  ) -> None:
         self.name = name
-        self.weaponType = weapon_type
+        self.weapon_type = weapon_type
         self.damage = damage
         self.value = value
 
     def to_dict(self):
         return {
             'name': self.name,
-            'weaponType': self.weaponType,
+            'weapon_type': self.weapon_type,
             'damage': self.damage,
             'value': self.value
         }
@@ -42,8 +47,20 @@ class Weapons:
         with open(filename, 'r') as f:
             data = json.load(f)
         for k, v in data.items():
-            weapon = Weapon(name=v['name'], weapon_type=v['weaponType'], damage=v['damage'], value=v['value'])
+            weapon = Weapon(name=v['name'], weapon_type=v['weapon_type'], damage=v['damage'], value=v['value'])
             self.weapon_dict[k] = weapon
+
+    @staticmethod
+    def mongo_upload_new(item: dict):
+        weapons_coll.insert(item)
+
+    def mongo_load(self):
+        for item in weapons_coll.find():
+            weapon = Weapon(name=item['name'],
+                            weapon_type=item['weapon_type'],
+                            damage=item['damage'],
+                            value=item['value'])
+            self.weapon_dict[item['name']] = weapon
 
 
 def create_weapon():

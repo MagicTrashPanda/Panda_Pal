@@ -8,7 +8,6 @@ enemies = Enemies()
 enemies.load_from_json('enemies.json')
 weapons.load_from_json('weapons.json')
 
-
 current_enemy = None
 
 
@@ -23,12 +22,13 @@ async def combat(interaction, monster_to_fight, weapon_to_equip, user, msg_id):
         current_enemy.attack(hero)
         hero_health_bar = hero.health_bar.draw_update()
         enemy_health_bar = current_enemy.health_bar.draw_update()
-        await interaction.followup.edit_message(message_id=msg_id.id, content=f"{hero.name} dealt {hero.weapon.damage} to"
-                                                 f" **{current_enemy.name}** with *{hero.weapon.name}*!\n"
-                                                 f"**{current_enemy.name}** dealt {current_enemy.weapon.damage} to "
-                                                 f"{hero.name} with *{current_enemy.weapon.name}*!\n\n\n"
-                                                 f"{hero_health_bar}\n\n"
-                                                 f"{enemy_health_bar}")
+        await interaction.followup.edit_message(message_id=msg_id.id,
+                                                content=f"{hero.name} dealt {hero.weapon.damage} "
+                                                        f"to **{current_enemy.name}** with *{hero.weapon.name}*!\n"
+                                                        f"**{current_enemy.name}** dealt {current_enemy.weapon.damage} "
+                                                        f"to {hero.name} with *{current_enemy.weapon.name}*!\n\n\n"
+                                                        f"{hero_health_bar}\n\n"
+                                                        f"{enemy_health_bar}")
         if hero.health == 0 or current_enemy.health == 0:
             break
     return hero, current_enemy
