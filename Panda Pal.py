@@ -2,7 +2,7 @@
 from settings import *
 import discord
 from discord import app_commands
-from actions import combat
+from actions import combat, new_player, heal
 
 # declare bot intents
 intents = discord.Intents.default()
@@ -60,16 +60,26 @@ class BattleView(discord.ui.View):
     description="Battle time",
     guild=discord.Object(id=836717870905163806)
 )
-async def battle(interaction,
-                 weapon_to_equip: str):
-    user = interaction.user.mention
+async def battle(interaction):
     view = BattleView()
     await interaction.response.send_message("Choose a Monster to fight", view=view)
     await view.wait()  # wait for the user to make a selection
     monster_to_fight = view.children[0].values[0]  # get the value of the selection
     await interaction.delete_original_response()
     msg_id = await interaction.followup.send("battle field")
-    await combat(interaction, monster_to_fight, weapon_to_equip, user, msg_id)
+    await combat(interaction, monster_to_fight, msg_id, interaction.user.id)
+
+
+@tree.command(
+    name="heal",
+    description="Heal your character",
+    guild=discord.Object(id=836717870905163806)
+)
+async def heal(interaction):
+    user_id = interaction.user.id
+    name = interaction.user.mention
+    await heal(user_id)
+    await interaction.response.send_message(f"{name} has been healed to full health!")
 
 
 @tree.command(
@@ -80,7 +90,8 @@ async def battle(interaction,
 async def create(interaction):
     user_id = interaction.user.id
     name = interaction.user.mention
-    await interaction.response.send_message("Character created!")
+    await new_player(user_id, name)
+    await interaction.response.send_message(f"Your character has been created! Name: {name} ID: {user_id}")
 
 
 @client.event

@@ -1,3 +1,4 @@
+
 {
     "Mountain Lion": {
         "name": "Mountain Lion",
@@ -13,5 +14,20 @@
         "name": "Goblin",
         "health": 30,
         "weapon": "Club"
+    },
+    "Wolf": {
+        "name": "Wolf",
+        "health": 50,
+        "weapon": "Bite"
+    },
+    "Vampire Bat": {
+        "name": "Vampire Bat",
+        "health": 30,
+        "weapon": "Sharp Fangs"
+    },
+    "Bear": {
+        "name": "Bear",
+        "health": 80,
+        "weapon": "Sharp Claws"
     }
 }

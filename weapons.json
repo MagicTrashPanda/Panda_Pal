@@ -26,7 +26,7 @@
     "Claws": {
         "name": "Claws",
         "weaponType": "sharp",
-        "damage": 5,
+        "damage": 4,
         "value": 0
     },
     "Fangs": {
@@ -46,5 +46,41 @@
         "weaponType": "blunt",
         "damage": 4,
         "value": 3
+    },
+    "Fire Staff": {
+        "name": "Fire Staff",
+        "weaponType": "magic",
+        "damage": 15,
+        "value": 35
+    },
+    "Poison Dagger": {
+        "name": "Poison Dagger",
+        "weaponType": "sharp",
+        "damage": 8,
+        "value": 20
+    },
+    "Ice Bow": {
+        "name": "Ice Bow",
+        "weaponType": "ranged",
+        "damage": 12,
+        "value": 30
+    },
+    "Bite": {
+        "name": "Bite",
+        "weaponType": "sharp",
+        "damage": 6,
+        "value": 0
+    },
+    "Sharp Fangs": {
+        "name": "Sharp Fangs",
+        "weaponType": "sharp",
+        "damage": 5,
+        "value": 0
+    },
+    "Sharp Claws": {
+        "name": "Sharp Claws",
+        "weaponType": "sharp",
+        "damage": 5,
+        "value": 0
     }
 }

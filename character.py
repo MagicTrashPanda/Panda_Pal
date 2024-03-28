@@ -18,7 +18,7 @@ class Character:
                  ) -> None:
         self.name = name
         self.health = health
-        self.health_max = health
+        self.max_health = health
 
         self.weapon = weapons.weapon_dict['Fists']
 
@@ -33,19 +33,37 @@ class Hero(Character):
                  name: str,
                  health: int,
                  user_id: str,
-                 weapon: str
+                 weapon: str,
+                 gold: int,
+                 exp: int,
+                 level: int
                  ) -> None:
         super().__init__(name=name, health=health)
         self.default_weapon = weapons.weapon_dict['Fists']
         self.health_bar = HealthBar(self)
         self.user_id = user_id
         self.weapon = weapons.weapon_dict[weapon]
+        self.max_health = health
+        self.gold = gold
+        self.exp = exp
+        self.level = level
 
     def equip(self, weapon) -> None:
         self.weapon = weapon
 
     def drop(self) -> None:
         self.weapon = self.default_weapon
+
+    def to_dict(self):
+        return {
+            'name': self.name,
+            'health': self.health,
+            'weapon': self.weapon.name,
+            'user_id': self.user_id,
+            'gold': self.gold,
+            'exp': self.exp,
+            'level': self.level
+        }
 
 
 class Enemy(Character):
@@ -55,6 +73,7 @@ class Enemy(Character):
                  weapon: str
                  ) -> None:
         super().__init__(name=name, health=health)
+        self.max_health = health
         self.weapon = weapons.weapon_dict[weapon]
         self.health_bar = HealthBar(self)
 
@@ -74,7 +93,24 @@ class Players:
         for k, v in self.player_dict.items():
             players_coll.update_one({"user_id": k}, {"$set": v.to_dict()})
 
-    def load_
+    def update_player(self, user_id):
+        players_coll.update_one({"user_id": user_id}, {"$set": self.player_dict[user_id].to_dict()})
+
+    def mongo_load(self):
+        for item in players_coll.find():
+            player = Hero(name=item['name'],
+                          health=item['health'],
+                          user_id=item['user_id'],
+                          weapon=item['weapon'],
+                          gold=item['gold'],
+                          exp=item['exp'],
+                          level=item['level'])
+            self.player_dict[item['user_id']] = player
+
+    def new_user(self, user_id, name):
+        new_player = Hero(name=name, health=100, user_id=user_id, weapon='Fists', gold=0, exp=0, level=1)
+        self.player_dict[user_id] = new_player
+        players_coll.insert_one(new_player.to_dict())
 
 
 class Enemies:
@@ -108,6 +144,11 @@ class Enemies:
         for item in enemies_coll.find():
             enemy = Enemy(name=item['name'], health=item['health'], weapon=item['weapon'])
             self.enemy_dict[item['name']] = enemy
+
+    def duplicate_enemy(self, enemy_name, user_id):
+        enemy = self.enemy_dict[enemy_name]
+        new_enemy = Enemy(name=enemy.name, health=enemy.health, weapon=enemy.weapon.name)
+        self.enemy_dict[enemy_name + user_id] = new_enemy
 
 
 def create_enemy():
